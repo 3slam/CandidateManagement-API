@@ -11,6 +11,13 @@ namespace CandidateManagement_API.Controllers;
 public class CandidatesController(ICandidateService candidateService) : ApplicationBaseController
 {
 
+    //introduce pagination later if needed
+    [HttpGet]
+    public async Task<ActionResult<IReadOnlyCollection<Candidate>>> Get()
+    {
+        return HandleResult(await candidateService.GetAsync());
+    }
+ 
     [HttpPost("add")]
     public async Task<ActionResult<Candidate>> Add(AddCandidateRequest candidate)
     {

@@ -15,6 +15,14 @@ internal class CandidateService(
     IValidator<Candidate> validator,
     ICandidateRepository repository) : ICandidateService
 {
+    public async Task<Result<IReadOnlyCollection<Candidate>>> GetAsync()
+    {
+        var candidates = await repository.GetAllAsync();
+         if (candidates is null || candidates.Count == 0)
+            return Error.NotFound("There are no candidates.");
+        return Result.Success(candidates);
+    }
+
     public async Task<Result<IReadOnlyCollection<Candidate>>> UploadAsync(StreamReader reader)
     {
         try
@@ -164,4 +172,6 @@ internal class CandidateService(
         await repository.SaveChangesAsync();
         return candidate;
     }
+
+  
 }

@@ -6,6 +6,7 @@ namespace CandidateManagement.Application.Contracts;
 
 public interface ICandidateService
 {
+    Task<Result<IReadOnlyCollection<Candidate>>> GetAsync();
     Task<Result<IReadOnlyCollection<Candidate>>> UploadAsync(StreamReader streamReader);
     Task<Result<Stream>> ExportAsync();
     Task<Result<Candidate>> EditAsync(Candidate candidate);
